@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DF LUXE (@dfluxeofficial) — Vietnam Official Launch & Editorial Lookbook</title>
+
+  <!-- Google Fonts: Be Vietnam Pro (Viet Pro) 100% Chuẩn Chính Tả Tiếng Việt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            viet: ['"Be Vietnam Pro"', 'sans-serif'],
+          },
+          colors: {
+            obsidian: '#050505',
+            charcoal: '#0E0E0E',
+            champagne: '#D4AF37',
+            rouge: '#9E1B24',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #050505;
+      color: #FAFAFA;
+      overflow-x: hidden;
+    }
+
+    /* Ẩn con trỏ mặc định trên Desktop để dùng Con Trỏ Thỏi Son DF LUXE */
+    @media (pointer: fine) {
+      body, a, button, input, select, label, .swatch-btn, .lookbook-item {
+        cursor: none !important;
+      }
+    }
+
+    /* Con trỏ Thỏi Son DF LUXE */
+    #df-lipstick-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 96px;
+      height: 96px;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-10px, -10px);
+      transition: transform 0.06s ease-out;
+      will-change: transform;
+      filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.85));
+    }
+
+    @media (pointer: coarse) {
+      #df-lipstick-cursor {
+        display: none !important;
+      }
+    }
+
+    /* Canvas vẽ vệt son nhung mịn theo con trỏ */
+    #swatch-trail-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9990;
+    }
+
+    /* Hiệu ứng khung ảnh người mẫu thật chuẩn tạp chí Chanel / Gucci */
+    .editorial-photo-frame {
+      position: relative;
+      overflow: hidden;
+      background: #121212;
+    }
+    .editorial-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    }
+    .editorial-photo-frame:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Nút chọn màu Swatch */
+    .swatch-btn {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .swatch-btn.active {
+      transform: translateY(-4px);
+      border-color: #D4AF37 !important;
+      box-shadow: 0 12px 28px -6px var(--swatch-shadow, rgba(212, 175, 55, 0.45));
+    }
+
+    /* Thanh cuộn tinh tế */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #050505; }
+    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+  </style>
+</head>
+
+<body class="selection:bg-champagne selection:text-black">
+
+  <!-- CANVAS VỆT MÀU SON TƯƠNG TÁC (LIP SWATCH TRAIL) -->
+  <canvas id="swatch-trail-canvas"></canvas>
+
+  <!-- CON TRỎ CHUỘT THỎI SON DF LUXE (Tái hiện từ ảnh thật SYS-01676.jpg) -->
+  <div id="df-lipstick-cursor" aria-hidden="true">
+    <svg viewBox="0 0 130 130" class="w-full h-full overflow-visible">
+      <defs>
+        <linearGradient id="dfTubeBlack" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2a2a2a"/>
+          <stop offset="45%" stop-color="#090909"/>
+          <stop offset="100%" stop-color="#000000"/>
+        </linearGradient>
+        <linearGradient id="dfCrystal" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
+          <stop offset="30%" stop-color="rgba(255,255,255,0.1)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.4)"/>
+        </linearGradient>
+      </defs>
+      <g transform="translate(12, 12) rotate(-45)">
+        <circle cx="0" cy="0" r="9" id="cursor-glow-dot" fill="#9E1B24" opacity="0.65" filter="blur(3px)"/>
+        <!-- Đáy pha lê & lõi màu son ngay mũi trỏ chuột -->
+        <rect x="-10" y="0" width="20" height="28" rx="2" fill="url(#dfCrystal)" stroke="rgba(255,255,255,0.45)" stroke-width="0.8"/>
+        <path id="cursor-pigment-tip" d="M-7.5,26 L-7.5,9 C-7.5,2 0,0 7.5,6 L7.5,26 Z" fill="#9E1B24"/>
+        <!-- Thân đen bóng Ombre của DF LUXE Lip Mousse -->
+        <rect x="-10" y="25" width="20" height="44" fill="url(#dfTubeBlack)" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+        <!-- Logo DF LUXE nguyên bản -->
+        <text x="0" y="49" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="800" letter-spacing="-0.5">DF</text>
+        <text x="0" y="56" text-anchor="middle" fill="#FFFFFF" font-size="3.8" font-weight="600" letter-spacing="2">LUXE</text>
+        <!-- Nắp vuông & núm tròn đỉnh son (SYS-01676) -->
+        <rect x="-10" y="70" width="20" height="20" rx="1.5" fill="url(#dfTubeBlack)" stroke="rgba(255,255,255,0.22)" stroke-width="0.6"/>
+        <rect x="-4.5" y="90" width="9" height="3.5" fill="#111"/>
+        <ellipse cx="0" cy="97" rx="8" ry="5" fill="url(#dfTubeBlack)" stroke="rgba(255,255,255,0.3)" stroke-width="0.7"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- INPUT ẨN ĐỂ ĐỒNG BỘ ẢNH THẬT TỪ MÁY NẾU MỞ TRỰC TIẾP TRONG SANDBOX -->
+  <input type="file" id="real-photos-loader" multiple accept="image/*" class="hidden" onchange="handleRealPhotosUpload(event)" />
+
+  <!-- MODAL CẤU HÌNH NHANH LINK GOOGLE SHEETS & XUẤT FILE DỰ PHÒNG CHO ADMIN -->
+  <div id="sheets-config-modal" class="fixed inset-0 z-[9995] hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="w-full max-w-lg rounded-3xl bg-[#111111] border border-champagne/40 p-6 sm:p-8 space-y-5 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div>
+          <span class="text-[10px] font-bold tracking-[0.25em] uppercase text-champagne block">ADMIN PANEL • DF LUXE VIETNAM</span>
+          <h3 class="text-lg font-bold text-white mt-0.5">Kết Nối Google Sheets & Quản Lý Data</h3>
+        </div>
+        <button onclick="toggleSheetsModal(false)" class="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center text-sm">✕</button>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold text-white/80">Đường dẫn Google Apps Script Web App URL (`.../exec`):</label>
+        <input id="input-script-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-xs text-white focus:outline-none focus:border-champagne" />
+        <p class="text-[11px] text-white/50 leading-relaxed">
+          Khi dán link Web App URL của bạn vào đây và bấm Lưu, mọi khách hàng điền form sẽ tự động đổ thẳng vào bảng Google Sheets trong Google Drive của bạn.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/10">
+        <button onclick="exportLocalLeadsCSV()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-semibold text-white transition">
+          📥 Tải Danh Sách Dự Phòng (.CSV) (<span id="backup-count">0</span>)
+        </button>
+        <button onclick="saveScriptUrlConfig()" class="px-6 py-2.5 rounded-xl bg-champagne text-black text-xs font-bold tracking-wider uppercase hover:bg-white transition">
+          Lưu Kết Nối
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- HEADER CHUẨN THƯƠNG HIỆU CHÍNH THỨC: DF LUXE (@dfluxeofficial)       -->
+  <!-- =================================================================== -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-obsidian/85 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-[1440px] mx-auto px-5 md:px-10 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Logo Chính Thức DF LUXE -->
+      <a href="#palette-first" class="flex items-center gap-3.5 group shrink-0">
+        <div class="w-11 h-11 rounded-full bg-white/5 border border-white/15 flex items-center justify-center overflow-hidden group-hover:border-champagne transition">
+          <img src="DF LUXE DESIGN/Logo/DF luxe-white.png" alt="DF LUXE" class="w-8 h-8 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+          <svg viewBox="0 0 200 200" class="w-7 h-7 hidden">
+            <path d="M92,30 C52,33 22,63 22,100 C22,137 52,167 92,170 L92,30 Z M72,56 L72,144 C50,136 38,120 38,100 C38,80 50,64 72,56 Z" fill="#FFFFFF"/>
+            <path d="M108,30 L108,170 L126,170 L126,108 L166,108 L166,90 L126,90 L126,50 C145,53 158,64 166,78 L182,67 C170,45 144,31 108,30 Z" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-lg font-extrabold tracking-[0.26em] text-white leading-none">DF LUXE</span>
+          <span class="block text-[9px] font-medium tracking-[0.32em] text-champagne uppercase mt-1">@dfluxeofficial • VIETNAM</span>
+        </div>
+      </a>
+
+      <!-- Điều hướng tối giản chuẩn Lookbook -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs font-medium tracking-[0.2em] uppercase text-white/70">
+        <a href="#palette-first" class="hover:text-white transition" data-i18n="nav_1">01. Bảng Màu</a>
+        <a href="#real-muse-lookbook" class="hover:text-white transition" data-i18n="nav_2">02. Người Mẫu Thật</a>
+        <a href="#product-archive" class="hover:text-white transition" data-i18n="nav_3">03. Bộ Sưu Tập</a>
+        <a href="#scholarship" class="text-champagne hover:text-white transition flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-champagne animate-ping"></span>
+          <span data-i18n="nav_4">20 Học Bổng 4 Tuần</span>
+        </a>
+      </nav>
+
+      <!-- Cụm nút Công cụ: Đồng Bộ Ảnh Gốc + Cấu hình Google Sheets + Đổi ngôn ngữ VI/EN -->
+      <div class="flex items-center gap-2">
+        <button onclick="document.getElementById('real-photos-loader').click()" title="Chọn các file ảnh SYS-*.jpg từ máy của bạn nếu trình duyệt chưa tự nhận đường dẫn" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-[10px] font-semibold tracking-[0.12em] uppercase text-champagne transition flex items-center gap-1.5">
+          <span>📷</span>
+          <span class="hidden sm:inline" data-i18n="btn_sync_photos">Đồng Bộ Ảnh Gốc</span>
+        </button>
+
+        <button onclick="toggleSheetsModal(true)" title="Kết nối Google Sheets hoặc tải file CSV khách hàng" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-[10px] font-semibold tracking-[0.12em] uppercase text-white/80 hover:text-champagne transition flex items-center gap-1.5">
+          <span>📊</span>
+          <span class="hidden xl:inline">Google Sheets</span>
+        </button>
+
+        <div class="flex items-center bg-white/5 border border-white/15 rounded-full p-0.5 text-[11px] font-bold">
+          <button id="lang-vi" onclick="setLanguage('vi')" class="px-3 py-1 rounded-full bg-white text-black transition">VI</button>
+          <button id="lang-en" onclick="setLanguage('en')" class="px-3 py-1 rounded-full text-white/60 hover:text-white transition">EN</button>
+        </div>
+
+        <a href="#scholarship" class="hidden md:inline-flex px-4 py-2 rounded-full bg-champagne text-black text-[11px] font-bold tracking-[0.16em] uppercase hover:bg-white transition">
+          <span data-i18n="nav_cta">Nhận Học Bổng</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =================================================================== -->
+  <!-- PHẦN 1 (TRÊN CÙNG): BẢNG MÀU CHÍNH THỨC DF LUXE & ẢNH NGƯỜI MẪU THẬT  -->
+  <!-- =================================================================== -->
+  <section id="palette-first" class="relative min-h-screen pt-24 pb-12 flex flex-col justify-between overflow-hidden">
+    
+    <!-- Ánh sáng nền đổi màu theo Swatch -->
+    <div id="ambient-color-aura" class="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] md:w-[820px] h-[550px] md:h-[820px] rounded-full blur-[160px] opacity-35 transition-all duration-700" style="background: radial-gradient(circle, #9E1B24 0%, transparent 70%);"></div>
+
+    <div class="max-w-[1440px] w-full mx-auto px-5 md:px-10 relative z-10 flex-1 flex flex-col justify-between">
+      
+      <!-- Thanh Chuyển Đổi 2 Dòng Sản Phẩm Chính Hãng trên dfluxeofficial.com -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
+        <div>
+          <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-champagne block" data-i18n="official_tag">DF LUXE OFFICIAL VIETNAM • BY DIAN FLAWLESS</span>
+          <p class="text-xs text-white/55 mt-0.5" data-i18n="official_sub">Bấm vào từng ô màu bên dưới để xem trực tiếp trên người mẫu thật và sản phẩm thật</p>
+        </div>
+
+        <div class="inline-flex bg-white/5 border border-white/15 rounded-full p-1 self-start">
+          <button id="mode-lip-btn" onclick="switchCollection('lip')" class="px-4 sm:px-5 py-2 rounded-full text-[11px] font-bold tracking-[0.16em] uppercase bg-white text-black transition">
+            DF LUXE LIP MOUSSE (06)
+          </button>
+          <button id="mode-cushion-btn" onclick="switchCollection('cushion')" class="px-4 sm:px-5 py-2 rounded-full text-[11px] font-bold tracking-[0.16em] uppercase text-white/70 hover:text-white transition">
+            GLOW FLAWLESS CUSHION (04)
+          </button>
+        </div>
+      </div>
+
+      <!-- THANH CHỌN MÀU SWATCH NẰM NGAY ĐẦU TIÊN -->
+      <div class="my-5">
+        <div id="top-swatch-bar" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+          <!-- Render tự động 6 màu Lip Mousse hoặc 4 màu Glow Flawless Cushion chính hãng -->
+        </div>
+      </div>
+
+      <!-- SHOWCASE TRỰC QUAN 100% ẢNH THẬT (NGƯỜI MẪU THẬT + SẢN PHẨM THẬT + THÔNG TIN TỐI GIẢN) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch my-2">
+        
+        <!-- Cột Trái (5 col): ẢNH CHỤP NGƯỜI MẪU THẬT ĐANG DÙNG MÀU ĐÓ (Real Model Portrait) -->
+        <div class="lg:col-span-5 rounded-3xl overflow-hidden border border-white/15 bg-charcoal relative min-h-[420px] sm:min-h-[500px] editorial-photo-frame group">
+          <img id="hero-real-model-img" data-file="SYS-00221.jpg" src="SYS-00221.jpg" alt="DF LUXE Real Model" class="w-full h-full object-cover object-top" />
+          
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-6 sm:p-8 flex items-end justify-between gap-4">
+            <div>
+              <span id="hero-model-badge" class="inline-block px-2.5 py-1 rounded bg-white/15 backdrop-blur-md text-[10px] font-bold tracking-[0.22em] uppercase text-champagne mb-2">
+                REAL MUSE • SYS-00221
+              </span>
+              <h2 id="hero-model-caption" class="text-xl sm:text-2xl font-bold text-white leading-snug">
+                Quý Cô Lụa Nâu • Sắc Đỏ 03 Rouge & Bông Phấn LUXE
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cột Giữa (4 col): ẢNH CHỤP SẢN PHẨM THẬT TƯƠNG ỨNG (Real Product Still-Life) -->
+        <div class="lg:col-span-4 rounded-3xl overflow-hidden border border-white/15 bg-charcoal relative min-h-[380px] sm:min-h-[500px] editorial-photo-frame group">
+          <img id="hero-real-product-img" data-file="SYS-01676.jpg" src="SYS-01676.jpg" alt="DF LUXE Real Product" class="w-full h-full object-cover object-center" />
+          
+          <div class="absolute top-4 left-4">
+            <span id="hero-product-file-tag" class="px-3 py-1 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-[10px] font-semibold tracking-[0.2em] uppercase text-white/80">
+              STUDIO SHOT • SYS-01676
+            </span>
+          </div>
+
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6">
+            <p id="hero-product-caption" class="text-sm font-medium text-white/90">
+              Thỏi son DF LUXE Lip Mousse đặt trên giá đỡ điện thoại mạ vàng cổ điển.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cột Phải (3 col): ĐẶC TẢ SẮC MÀU CÔ ĐỌNG & CẬN CẢNH THỨ 2 CỦA NGƯỜI MẪU -->
+        <div class="lg:col-span-3 flex flex-col justify-between gap-4">
+          
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span id="active-code-pill" class="text-[10px] font-bold tracking-[0.28em] uppercase text-champagne">DF LUXE • 03</span>
+                <span id="active-hex-dot" class="w-5 h-5 rounded-full border border-white/40" style="background-color: #9E1B24;"></span>
+              </div>
+
+              <h1 id="active-shade-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-none">
+                03 ROUGE
+              </h1>
+
+              <p id="active-shade-subtitle" class="text-xs font-semibold tracking-[0.18em] uppercase text-white/50 mt-2">
+                LUXURY VELVET FINISH
+              </p>
+
+              <p id="active-shade-shortdesc" class="text-xs sm:text-sm text-white/75 font-light leading-relaxed mt-4">
+                Chất kem mousse nhung mịn nhẹ môi, lên màu chuẩn xác ngay từ lần lướt cọ đầu tiên.
+              </p>
+            </div>
+
+            <div class="pt-5 border-t border-white/10 mt-5 flex items-center justify-between">
+              <span class="text-[11px] uppercase tracking-[0.18em] text-white/50" data-i18n="clear_trail_hint">Vệt thử son trên màn hình</span>
+              <button onclick="clearTrail()" class="text-[11px] font-bold uppercase tracking-[0.15em] text-champagne hover:underline" data-i18n="btn_clear">Xóa vệt</button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl overflow-hidden border border-white/15 h-48 editorial-photo-frame relative">
+            <img id="hero-closeup-img" data-file="SYS-00235.jpg" src="SYS-00235.jpg" alt="DF LUXE Close Up" class="w-full h-full object-cover object-center" />
+            <div class="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-black/65 backdrop-blur-md text-[10px] font-semibold tracking-[0.18em] uppercase text-white/85">
+              CLOSE-UP • <span id="hero-closeup-tag">SYS-00235</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================== -->
+  <!-- PHẦN 2: LOOKBOOK NGƯỜI MẪU THẬT (8 BỨC ẢNH CHÂN DUNG NGƯỜI MẪU THẬT) -->
+  <!-- =================================================================== -->
+  <section id="real-muse-lookbook" class="py-20 px-5 md:px-10 border-t border-white/10 bg-[#080808]">
+    <div class="max-w-[1440px] mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-champagne block mb-2">02 / THE OFFICIAL CAMPAIGN PORTRAITS</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white" data-i18n="lb_title">
+            LOOKBOOK NGƯỜI MẪU THẬT DF LUXE
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-white/55 max-w-md" data-i18n="lb_subtitle">
+          Bấm vào bất kỳ bức ảnh người mẫu nào để thử ngay sắc son & phấn nước đó lên màn hình.
+        </p>
+      </div>
+
+      <!-- BỘ 1: NÀNG THƠ ÁO LỤA VÀNG CỔ CAO (SYS-00041, SYS-00141, SYS-00153) -->
+      <div class="mb-4 flex items-center justify-between">
+        <span class="text-xs font-bold tracking-[0.22em] uppercase text-champagne">SERIES I • GOLDEN SILK MUSE (02 PINK BERRY & GLOW FLAWLESS CUSHION)</span>
+        <span class="text-xs text-white/40">3 PHOTOGRAPHS</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mb-14">
+        <div onclick="selectShade('lip', 1)" class="lookbook-item md:col-span-5 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[460px] sm:h-[540px] group">
+          <img data-file="SYS-00041.jpg" src="SYS-00041.jpg" alt="DF LUXE Model SYS-00041" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6 flex items-end justify-between">
+            <div>
+              <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 01 • SYS-00041</span>
+              <h3 class="text-lg font-bold text-white mt-0.5">Glow Flawless Cushion & 02 Pink Berry</h3>
+            </div>
+            <span class="w-7 h-7 rounded-full border border-white/40 shrink-0" style="background-color: #D85B6B;"></span>
+          </div>
+        </div>
+
+        <div onclick="selectShade('lip', 1)" class="lookbook-item md:col-span-4 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[460px] sm:h-[540px] group">
+          <img data-file="SYS-00141.jpg" src="SYS-00141.jpg" alt="DF LUXE Model SYS-00141" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6 flex items-end justify-between">
+            <div>
+              <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 02 • SYS-00141</span>
+              <h3 class="text-lg font-bold text-white mt-0.5">Lip Mousse — 02 Pink Berry (Best Seller)</h3>
+            </div>
+            <span class="w-7 h-7 rounded-full border border-white/40 shrink-0" style="background-color: #D85B6B;"></span>
+          </div>
+        </div>
+
+        <div onclick="selectShade('lip', 0)" class="lookbook-item md:col-span-3 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[460px] sm:h-[540px] group">
+          <img data-file="SYS-00153.jpg" src="SYS-00153.jpg" alt="DF LUXE Model SYS-00153" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6">
+            <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 03 • SYS-00153</span>
+            <h3 class="text-base font-bold text-white mt-0.5">Sculpted Profile • 01 Nudy Brown</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- BỘ 2: QUÝ CÔ KHĂN LỤA SATIN & ĐIỆN THOẠI VÀNG CỔ ĐIỂN (SYS-00221, SYS-00235, SYS-09665, SYS-09466, SYS-09508) -->
+      <div class="mb-4 flex items-center justify-between">
+        <span class="text-xs font-bold tracking-[0.22em] uppercase text-champagne">SERIES II • ROYAL ROUGE & GOLDEN TELEPHONE CAMPAIGN</span>
+        <span class="text-xs text-white/40">5 PHOTOGRAPHS</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div onclick="selectShade('lip', 2)" class="lookbook-item md:col-span-4 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[460px] group">
+          <img data-file="SYS-00221.jpg" src="SYS-00221.jpg" alt="DF LUXE Model SYS-00221" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6">
+            <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 04 • SYS-00221</span>
+            <h3 class="text-lg font-bold text-white mt-0.5">LUXE Black Puff & 03 Rouge</h3>
+          </div>
+        </div>
+
+        <div onclick="selectShade('lip', 2)" class="lookbook-item md:col-span-4 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[460px] group">
+          <img data-file="SYS-00235.jpg" src="SYS-00235.jpg" alt="DF LUXE Model SYS-00235" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6">
+            <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 05 • SYS-00235</span>
+            <h3 class="text-lg font-bold text-white mt-0.5">Velvet Matte — 03 Rouge</h3>
+          </div>
+        </div>
+
+        <div onclick="selectShade('cushion', 2)" class="lookbook-item md:col-span-4 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[460px] group">
+          <img data-file="SYS-09665.jpg" src="SYS-09665.jpg" alt="DF LUXE Model SYS-09665" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6">
+            <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 06 • SYS-09665</span>
+            <h3 class="text-lg font-bold text-white mt-0.5">Glow Flawless Cushion — Sand Shade</h3>
+          </div>
+        </div>
+
+        <div onclick="selectShade('lip', 4)" class="lookbook-item md:col-span-6 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[480px] group">
+          <img data-file="SYS-09466.jpg" src="SYS-09466.jpg" alt="DF LUXE Model SYS-09466" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6 flex items-end justify-between">
+            <div>
+              <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 07 • SYS-09466</span>
+              <h3 class="text-xl font-bold text-white mt-0.5">The Golden Call • 05 Sunset Coral</h3>
+            </div>
+            <span class="w-7 h-7 rounded-full border border-white/40 shrink-0" style="background-color: #D46146;"></span>
+          </div>
+        </div>
+
+        <div onclick="selectShade('lip', 4)" class="lookbook-item md:col-span-6 rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-[480px] group">
+          <img data-file="SYS-09508.jpg" src="SYS-09508.jpg" alt="DF LUXE Model SYS-09508" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6 flex items-end justify-between">
+            <div>
+              <span class="text-[10px] font-bold tracking-[0.24em] text-champagne uppercase block">LOOK 08 • SYS-09508</span>
+              <h3 class="text-xl font-bold text-white mt-0.5">Silk Elegance • 05 Sunset Coral</h3>
+            </div>
+            <span class="w-7 h-7 rounded-full border border-white/40 shrink-0" style="background-color: #D46146;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================================================================== -->
+  <!-- PHẦN 3: BỘ ẢNH CHỤP SẢN PHẨM THẬT (CHESSBOARD & GOLDEN TELEPHONE)     -->
+  <!-- =================================================================== -->
+  <section id="product-archive" class="py-20 px-5 md:px-10 border-t border-white/10 bg-obsidian">
+    <div class="max-w-[1440px] mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-champagne block mb-2">03 / STILL-LIFE PHOTOGRAPHY ARCHIVE</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white" data-i18n="archive_title">
+            TUYỆT TÁC SẢN PHẨM DF LUXE
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-white/55 max-w-md" data-i18n="archive_sub">
+          Trọn bộ góc chụp studio nguyên bản của DF LUXE Lip Mousse & Glow Flawless Cushion.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-96">
+          <img data-file="SYS-01676.jpg" src="SYS-01676.jpg" alt="DF LUXE Golden Phone SYS-01676" class="object-center" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+            <span class="text-[10px] text-champagne font-bold tracking-widest uppercase">SYS-01676</span>
+            <p class="text-sm font-bold text-white">DF LUXE Lip Mousse • Golden Telephone Edition</p>
+          </div>
+        </div>
+
+        <div class="rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-96">
+          <img data-file="SYS-01596.jpg" src="SYS-01596.jpg" alt="DF LUXE Chess Flatlay SYS-01596" class="object-center" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+            <span class="text-[10px] text-champagne font-bold tracking-widest uppercase">SYS-01596</span>
+            <p class="text-sm font-bold text-white">Full 06 Lip Mousse Shades • Chessboard Flatlay</p>
+          </div>
+        </div>
+
+        <div class="rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-96">
+          <img data-file="SYS-01659.jpg" src="SYS-01659.jpg" alt="DF LUXE Cushion Chess SYS-01659" class="object-center" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+            <span class="text-[10px] text-champagne font-bold tracking-widest uppercase">SYS-01659</span>
+            <p class="text-sm font-bold text-white">Glow Flawless Cushion • Quilted Leather & Black Queen</p>
+          </div>
+        </div>
+
+        <div class="rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-96">
+          <img data-file="SYS-00308.jpg" src="SYS-00308.jpg" alt="DF LUXE 4 Cushions SYS-00308" class="object-center" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+            <span class="text-[10px] text-champagne font-bold tracking-widest uppercase">SYS-00308</span>
+            <p class="text-sm font-bold text-white">04 Cushion Shades • Vanilla, Petal, Sand, Beige</p>
+          </div>
+        </div>
+
+        <div class="rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-96">
+          <img data-file="SYS-00358.jpg" src="SYS-00358.jpg" alt="DF LUXE Lineup SYS-00358" class="object-center" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+            <span class="text-[10px] text-champagne font-bold tracking-widest uppercase">SYS-00358</span>
+            <p class="text-sm font-bold text-white">The Architectural Lineup • 06 Lip Mousse Tubes</p>
+          </div>
+        </div>
+
+        <div class="rounded-3xl overflow-hidden border border-white/15 editorial-photo-frame h-96">
+          <img data-file="SYS-01763.jpg" src="SYS-01763.jpg" alt="DF LUXE Cushion Stack SYS-01763" class="object-center" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+            <span class="text-[10px] text-champagne font-bold tracking-widest uppercase">SYS-01763</span>
+            <p class="text-sm font-bold text-white">Signature Silver Monogram & Quilted Leather</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================== -->
+  <!-- PHẦN 4: CHƯƠNG TRÌNH 20 SUẤT HỌC MAKEUP CƠ BẢN MIỄN PHÍ TRONG 4 TUẦN -->
+  <!-- (ĐÃ TÍCH HỢP LƯU TRỰC TIẾP VÀO GOOGLE SHEETS TRONG DRIVE CỦA BẠN)    -->
+  <!-- =================================================================== -->
+  <section id="scholarship" class="py-20 px-5 md:px-10 border-t border-white/10 bg-[#080808]">
+    <div class="max-w-[1280px] mx-auto bg-charcoal border border-champagne/35 rounded-[32px] p-7 sm:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-7 space-y-5">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-champagne/15 border border-champagne/40 text-[10px] font-bold tracking-[0.22em] uppercase text-champagne" data-i18n="acad_tag">
+            SỰ KIỆN KHAI TRƯƠNG TẠI VIỆT NAM • TÀI TRỢ 100% BỞI DF LUXE
+          </span>
+
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight" data-i18n="acad_heading">
+            Tặng Miễn Phí 20 Suất Học Makeup Cơ Bản (4 Tuần) Cùng Chuyên Gia
+          </h2>
+
+          <p class="text-sm text-white/70 font-light leading-relaxed" data-i18n="acad_text">
+            Nhân dịp thương hiệu DF LUXE (Indonesia) chính thức ra mắt tại thị trường Việt Nam, chúng tôi tài trợ 100% học phí và bộ sản phẩm thực hành chính hãng (DF LUXE Lip Mousse & Glow Flawless Cushion) cho 20 học viên đăng ký sớm nhất.
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10">
+              <span class="text-[10px] font-bold text-champagne uppercase">TUẦN 01</span>
+              <p class="text-xs font-semibold text-white mt-1" data-i18n="wk1">Nền Glow Flawless Cushion</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10">
+              <span class="text-[10px] font-bold text-champagne uppercase">TUẦN 02</span>
+              <p class="text-xs font-semibold text-white mt-1" data-i18n="wk2">Tạo Khối & Định Hình Mày</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10">
+              <span class="text-[10px] font-bold text-champagne uppercase">TUẦN 03</span>
+              <p class="text-xs font-semibold text-white mt-1" data-i18n="wk3">Môi Nhung Lip Mousse</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10">
+              <span class="text-[10px] font-bold text-champagne uppercase">TUẦN 04</span>
+              <p class="text-xs font-semibold text-white mt-1" data-i18n="wk4">Chụp Lookbook Tốt Nghiệp</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Đăng Ký Tự Động Đồng Bộ Google Sheets -->
+        <div class="lg:col-span-5 bg-black/70 border border-white/15 rounded-3xl p-6 sm:p-8">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-bold text-white" data-i18n="form_title">Giữ Suất Học Bổng Miễn Phí</h3>
+            <span class="text-xs font-bold text-champagne"><span id="slot-counter">05</span>/20 SUẤT CÒN LẠI</span>
+          </div>
+
+          <form onsubmit="handleScholarshipSubmit(event)" class="space-y-3.5">
+            <input id="reg-name" type="text" required placeholder="Họ và Tên của bạn *" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-sm text-white placeholder-white/35 focus:outline-none focus:border-champagne" />
+            <input id="reg-phone" type="tel" required placeholder="Số điện thoại / Zalo liên hệ *" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-sm text-white placeholder-white/35 focus:outline-none focus:border-champagne" />
+            <select id="reg-product" class="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/15 text-sm text-white focus:outline-none focus:border-champagne">
+              <option value="Lip Mousse - 02 Pink Berry (Best Seller)">DF LUXE Lip Mousse — 02 Pink Berry (Best Seller)</option>
+              <option value="Lip Mousse - 03 Rouge">DF LUXE Lip Mousse — 03 Rouge</option>
+              <option value="Lip Mousse - 01 Nudy Brown">DF LUXE Lip Mousse — 01 Nudy Brown</option>
+              <option value="Lip Mousse - 04 Cotton Kiss">DF LUXE Lip Mousse — 04 Cotton Kiss</option>
+              <option value="Lip Mousse - 05 Sunset Coral">DF LUXE Lip Mousse — 05 Sunset Coral</option>
+              <option value="Lip Mousse - 06 Scarlet Jet">DF LUXE Lip Mousse — 06 Scarlet Jet</option>
+              <option value="Glow Flawless Cushion">DF LUXE Glow Flawless Cushion (Vanilla / Petal / Sand / Beige)</option>
+            </select>
+
+            <button id="submit-scholarship-btn" type="submit" class="w-full py-3.5 rounded-xl bg-champagne text-black font-bold text-xs tracking-[0.2em] uppercase hover:bg-white transition">
+              <span data-i18n="form_btn">NHẬN THẺ HỌC BỔNG DF LUXE</span>
+            </button>
+          </form>
+
+          <!-- Trạng thái kết nối Google Sheets -->
+          <div class="mt-3 flex items-center justify-between text-[11px] text-white/45">
+            <span id="sheets-sync-indicator">● Chế độ lưu dự phòng + Google Sheets</span>
+            <button onclick="toggleSheetsModal(true)" class="text-champagne hover:underline">Cài đặt Sheet</button>
+          </div>
+
+          <div id="vip-pass-box" class="hidden mt-4 p-4 rounded-2xl bg-champagne/10 border border-champagne text-xs space-y-1.5">
+            <p class="font-bold text-champagne uppercase tracking-widest">✓ ĐÃ GHI NHẬN VÀO HỆ THỐNG DF LUXE VIETNAM</p>
+            <p id="vip-pass-name" class="text-white font-semibold"></p>
+            <p id="vip-sync-status" class="text-emerald-400 text-[11px]"></p>
+            <p class="text-white/70" data-i18n="vip_msg">Chuyên viên DF LUXE sẽ liên hệ qua Zalo để gửi lịch học 4 tuần.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER CHÍNH THỨC -->
+  <footer class="py-10 px-5 md:px-10 border-t border-white/10 bg-obsidian text-xs text-white/45">
+    <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <strong class="text-white tracking-[0.2em]">DF LUXE (@dfluxeofficial)</strong> • Official Vietnam Launch Showcase
+      </div>
+      <div>
+        id.dfluxeofficial.com • my.dfluxeofficial.com
+      </div>
+    </div>
+  </footer>
+
+  <!-- =================================================================== -->
+  <!-- JAVASCRIPT: DỮ LIỆU CHÍNH HÃNG, ĐỒNG BỘ ẢNH THẬT & GOOGLE SHEETS API -->
+  <!-- =================================================================== -->
+  <script>
+    // =========================================================================
+    // CẤU HÌNH GOOGLE SHEETS WEB APP URL (Bạn có thể dán trực tiếp vào đây hoặc
+    // dán qua nút "📊 Google Sheets" trên thanh menu của website)
+    // =========================================================================
+    const DEFAULT_GOOGLE_SCRIPT_URL = '';
+
+    function getGoogleScriptUrl() {
+      return localStorage.getItem('dfluxe_google_script_url') || DEFAULT_GOOGLE_SCRIPT_URL;
+    }
+
+    function getBackupLeads() {
+      try {
+        return JSON.parse(localStorage.getItem('dfluxe_scholarship_leads') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function updateSheetsStatusUI() {
+      const url = getGoogleScriptUrl();
+      const indicator = document.getElementById('sheets-sync-indicator');
+      const countEl = document.getElementById('backup-count');
+      const leads = getBackupLeads();
+      if (countEl) countEl.textContent = leads.length;
+
+      if (indicator) {
+        if (url && url.startsWith('https://script.google.com')) {
+          indicator.innerHTML = '<span class="text-emerald-400">● Đã kết nối Google Sheets Drive</span>';
+        } else {
+          indicator.innerHTML = `● Đã lưu ${leads.length} hồ sơ (Chưa gắn link Sheet)`;
+        }
+      }
+    }
+
+    function toggleSheetsModal(show) {
+      const modal = document.getElementById('sheets-config-modal');
+      if (!modal) return;
+      if (show) {
+        document.getElementById('input-script-url').value = getGoogleScriptUrl();
+        updateSheetsStatusUI();
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function saveScriptUrlConfig() {
+      const val = document.getElementById('input-script-url').value.trim();
+      localStorage.setItem('dfluxe_google_script_url', val);
+      updateSheetsStatusUI();
+      toggleSheetsModal(false);
+    }
+
+    function exportLocalLeadsCSV() {
+      const leads = getBackupLeads();
+      if (!leads.length) {
+        alert('Hiện chưa có học viên nào đăng ký trong bộ nhớ dự phòng.');
+        return;
+      }
+      const headers = ['Thời Gian', 'Mã Thẻ VIP', 'Họ và Tên', 'Số Điện Thoại', 'Sản Phẩm Đã Chọn', 'Ngôn Ngữ'];
+      const rows = leads.map(r => [
+        `"${r.timestamp}"`,
+        `"${r.vipCode}"`,
+        `"${r.name.replace(/"/g, '""')}"`,
+        `"'${r.phone}"`,
+        `"${r.product}"`,
+        `"${r.lang}"`
+      ]);
+      const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `DF_LUXE_Vietnam_Leads_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    }
+
+    // 1. DỮ LIỆU SẢN PHẨM CHÍNH HÃNG TỪ DFLUXEOFFICIAL.COM KẾT NỐI VỚI ẢNH NGƯỜI MẪU THẬT
+    const DFLUXE_CATALOG = {
+      lip: [
+        {
+          code: '01',
+          name: '01 Nudy Brown',
+          subtitle: 'DF LUXE LIP MOUSSE • WARM NUDE',
+          hex: '#9E5B4B',
+          desc_vi: 'Sắc nâu tây trầm ấm thời thượng — xuất hiện cùng góc nghiêng kiêu kỳ trên bờ vai áo lụa vàng và bàn cờ vua.',
+          desc_en: 'Sophisticated warm nude brown mousse — featured on our Golden Silk profile & chessboard campaign.',
+          modelImg: 'SYS-00153.jpg',
+          modelBadge: 'REAL MODEL • SYS-00153',
+          modelCaption_vi: 'Góc Nghiêng Lụa Vàng • Thỏi Son 01 Nudy Brown Trên Vai',
+          modelCaption_en: 'Golden Silk Profile • 01 Nudy Brown Poised on Shoulder',
+          productImg: 'SYS-01612.jpg',
+          productTag: 'CHESS EDITION • SYS-01612',
+          productCaption_vi: 'Thỏi son DF LUXE Lip Mousse 01 Nudy Brown giữa các quân cờ đen.',
+          productCaption_en: 'DF LUXE Lip Mousse 01 Nudy Brown amidst black chess pieces.',
+          closeupImg: 'SYS-00041.jpg',
+          closeupTag: 'SYS-00041'
+        },
+        {
+          code: '02',
+          name: '02 Pink Berry',
+          subtitle: 'BEST SELLER • ROSEWOOD BERRY',
+          hex: '#D85B6B',
+          desc_vi: 'Sắc hồng đào san hô bán chạy số 1 của DF LUXE — diện bởi Nàng thơ áo lụa vàng cổ cao.',
+          desc_en: 'DF LUXE’s #1 Best-Selling rosewood pink berry — worn by our Golden Silk Muse.',
+          modelImg: 'SYS-00141.jpg',
+          modelBadge: 'BEST SELLER • SYS-00141',
+          modelCaption_vi: 'Nàng Thơ Lụa Vàng • Đôi Môi 02 Pink Berry Ngọt Ngào',
+          modelCaption_en: 'Golden Silk Muse • 02 Pink Berry Velvet Lips',
+          productImg: 'SYS-01596.jpg',
+          productTag: 'FLATLAY • SYS-01596',
+          productCaption_vi: '02 Pink Berry tỏa sáng trên bàn cờ vua DF LUXE.',
+          productCaption_en: '02 Pink Berry highlighted on the DF LUXE chessboard.',
+          closeupImg: 'SYS-00041.jpg',
+          closeupTag: 'SYS-00041'
+        },
+        {
+          code: '03',
+          name: '03 Rouge',
+          subtitle: 'SIGNATURE ROYAL RED • VELVET FINISH',
+          hex: '#9E1B24',
+          desc_vi: 'Sắc đỏ nhung quyền lực biểu tượng của DF LUXE — rực rỡ trên môi Quý cô khăn lụa nâu và giá điện thoại vàng.',
+          desc_en: 'The iconic royal crimson velvet mousse — worn in our Satin Hijab & Golden Telephone campaign.',
+          modelImg: 'SYS-00221.jpg',
+          modelBadge: 'ICONIC LOOK • SYS-00221',
+          modelCaption_vi: 'Quý Cô Lụa Nâu • Sắc Đỏ 03 Rouge & Bông Phấn LUXE',
+          modelCaption_en: 'Satin Hijab Muse • 03 Rouge & Black LUXE Puff',
+          productImg: 'SYS-01676.jpg',
+          productTag: 'GOLDEN PHONE • SYS-01676',
+          productCaption_vi: 'DF LUXE Lip Mousse 03 Rouge đặt trên giá đỡ điện thoại mạ vàng.',
+          productCaption_en: 'DF LUXE Lip Mousse 03 Rouge resting on the vintage gold telephone.',
+          closeupImg: 'SYS-00235.jpg',
+          closeupTag: 'SYS-00235'
+        },
+        {
+          code: '04',
+          name: '04 Cotton Kiss',
+          subtitle: 'SOFT PETAL MAUVE • CLOUD MOUSSE',
+          hex: '#C46D75',
+          desc_vi: 'Sắc hồng cánh sen pha đất nhẹ nhàng như mây — che phủ rãnh môi mềm mại suốt ngày dài.',
+          desc_en: 'Weightless petal mauve mousse that softly blurs lip lines with plush comfort.',
+          modelImg: 'SYS-00041.jpg',
+          modelBadge: 'REAL MODEL • SYS-00041',
+          modelCaption_vi: 'Nàng Thơ Lụa Vàng Cầm Hộp Phấn Nước Da Chần Bông',
+          modelCaption_en: 'Golden Silk Muse Holding DF LUXE Quilted Cushion',
+          productImg: 'SYS-01575.jpg',
+          productTag: 'ROYAL GAMBIT • SYS-01575',
+          productCaption_vi: 'Thỏi son DF LUXE đứng kiêu hãnh giữa bàn cờ vua gỗ.',
+          productCaption_en: 'DF LUXE Lip Mousse standing tall on the wooden chessboard.',
+          closeupImg: 'SYS-00141.jpg',
+          closeupTag: 'SYS-00141'
+        },
+        {
+          code: '05',
+          name: '05 Sunset Coral',
+          subtitle: 'WARM TERRACOTTA CORAL • EDITORIAL',
+          hex: '#D46146',
+          desc_vi: 'Sắc cam hoàng hôn ấm áp — sắc môi quyến rũ của Quý cô áo lụa trắng bên chiếc điện thoại mạ vàng.',
+          desc_en: 'Warm sunset coral terracotta — featured in our Golden Rotary Telephone editorial portraits.',
+          modelImg: 'SYS-09466.jpg',
+          modelBadge: 'GOLDEN CALL • SYS-09466',
+          modelCaption_vi: 'Quý Cô Điện Thoại Vàng • Sắc Cam 05 Sunset Coral',
+          modelCaption_en: 'The Golden Call • 05 Sunset Coral Lips',
+          productImg: 'SYS-00358.jpg',
+          productTag: 'LINEUP • SYS-00358',
+          productCaption_vi: 'Bộ sưu tập 6 sắc son DF LUXE Lip Mousse.',
+          productCaption_en: 'The complete 6-shade DF LUXE Lip Mousse lineup.',
+          closeupImg: 'SYS-09508.jpg',
+          closeupTag: 'SYS-09508'
+        },
+        {
+          code: '06',
+          name: '06 Scarlet Jet',
+          subtitle: 'DEEP VAMP SCARLET • HAUTE COUTURE',
+          hex: '#7A131D',
+          desc_vi: 'Sắc đỏ đậm Scarlet Jet sắc sảo, sang trọng — lựa chọn hoàn hảo cho những đêm tiệc đẳng cấp.',
+          desc_en: 'Deep hypnotic scarlet crimson engineered for bold, unforgettable evening statements.',
+          modelImg: 'SYS-00235.jpg',
+          modelBadge: 'REAL MODEL • SYS-00235',
+          modelCaption_vi: 'Thần Thái Vương Giả • Sắc Đỏ Đậm Quyền Lực',
+          modelCaption_en: 'Regal Presence • Deep Crimson Velvet Finish',
+          productImg: 'SYS-00372.jpg',
+          productTag: 'APPLICATOR • SYS-00372',
+          productCaption_vi: 'Cận cảnh đầu cọ vát nhung đỏ của DF LUXE Lip Mousse.',
+          productCaption_en: 'Close-up of the precision velvet applicator wand.',
+          closeupImg: 'SYS-09665.jpg',
+          closeupTag: 'SYS-09665'
+        }
+      ],
+      cushion: [
+        {
+          code: 'C01',
+          name: 'Vanilla Shade',
+          subtitle: 'GLOW FLAWLESS CUSHION • FAIR IVORY',
+          hex: '#F0D3B8',
+          desc_vi: 'Tông Vanilla trắng sáng tự nhiên — mang lại lớp nền căng bóng, mỏng nhẹ cùng vỏ da chần bông sang trọng.',
+          desc_en: 'Fair Vanilla shade for a luminous, second-skin satin glow housed in quilted black leather.',
+          modelImg: 'SYS-00041.jpg',
+          modelBadge: 'VANILLA SHADE • SYS-00041',
+          modelCaption_vi: 'Làn Da Trắng Sứ Mịn Màng Với Glow Flawless Cushion',
+          modelCaption_en: 'Porcelain Glow with DF LUXE Glow Flawless Cushion',
+          productImg: 'SYS-00308.jpg',
+          productTag: 'CUSHION SHADES • SYS-00308',
+          productCaption_vi: 'Cận cảnh lõi phấn mịn và bông phấn đen LUXE.',
+          productCaption_en: 'Close-up of the cushion core and signature LUXE black puff.',
+          closeupImg: 'SYS-00141.jpg',
+          closeupTag: 'SYS-00141'
+        },
+        {
+          code: 'C02',
+          name: 'Petal Shade',
+          subtitle: 'GLOW FLAWLESS CUSHION • COOL ROSE BEIGE',
+          hex: '#E4C0A2',
+          desc_vi: 'Tông Petal hồng hào tươi tắn — che phủ hoàn hảo khuyết điểm mà không gây dày bí da.',
+          desc_en: 'Natural rosy Petal undertone that brightens and perfects Asian complexions effortlessly.',
+          modelImg: 'SYS-00221.jpg',
+          modelBadge: 'PETAL SHADE • SYS-00221',
+          modelCaption_vi: 'Thao Tác Dặm Phấn Tinh Tế Cùng Bông Phấn Đen LUXE',
+          modelCaption_en: 'Effortless Touch-Up with the Signature Black LUXE Puff',
+          productImg: 'SYS-01763.jpg',
+          productTag: 'QUILTED LEATHER • SYS-01763',
+          productCaption_vi: 'Thiết kế vỏ da đen chần bông và logo DF bạc nguyên khối.',
+          productCaption_en: 'Signature black quilted leather case with silver DF monogram.',
+          closeupImg: 'SYS-00235.jpg',
+          closeupTag: 'SYS-00235'
+        },
+        {
+          code: 'C03',
+          name: 'Sand Shade',
+          subtitle: 'GLOW FLAWLESS CUSHION • MEDIUM WARM',
+          hex: '#D6AC87',
+          desc_vi: 'Tông Sand tự nhiên chuẩn sắc da phụ nữ Việt Nam và Đông Nam Á — kiềm dầu bền màu suốt ngày dài.',
+          desc_en: 'Medium warm Sand shade tailored for Southeast Asian skin tones with all-day oil control.',
+          modelImg: 'SYS-09665.jpg',
+          modelBadge: 'SAND SHADE • SYS-09665',
+          modelCaption_vi: 'Quý Cô Khăn Lụa Vàng Champagne & Glow Flawless Cushion',
+          modelCaption_en: 'Champagne Silk Muse Holding Glow Flawless Cushion',
+          productImg: 'SYS-01659.jpg',
+          productTag: 'CHESS QUEEN • SYS-01659',
+          productCaption_vi: 'Hộp phấn nước DF LUXE sánh đôi cùng quân Hậu đen.',
+          productCaption_en: 'DF LUXE Glow Flawless Cushion beside the black chess Queen.',
+          closeupImg: 'SYS-09466.jpg',
+          closeupTag: 'SYS-09466'
+        },
+        {
+          code: 'C04',
+          name: 'Beige Shade',
+          subtitle: 'GLOW FLAWLESS CUSHION • HONEY BRONZE',
+          hex: '#C4956C',
+          desc_vi: 'Tông Beige mật ong khỏe khoắn, quyến rũ — tôn vinh làn da rám nắng hoặc tạo khối sắc nét.',
+          desc_en: 'Warm honey Beige shade for radiant sun-kissed complexions and seamless sculpting.',
+          modelImg: 'SYS-09508.jpg',
+          modelBadge: 'BEIGE SHADE • SYS-09508',
+          modelCaption_vi: 'Làn Da Mật Ong Căng Bóng Không Tì Vết',
+          modelCaption_en: 'Flawless Honey-Glow Complexion in White Silk',
+          productImg: 'SYS-00308.jpg',
+          productTag: '4 TONES • SYS-00308',
+          productCaption_vi: 'Trọn bộ 4 tông màu Glow Flawless Cushion chính hãng.',
+          productCaption_en: 'All 4 official DF LUXE Glow Flawless Cushion shades.',
+          closeupImg: 'SYS-09466.jpg',
+          closeupTag: 'SYS-09466'
+        }
+      ]
+    };
+
+    const uploadedBlobMap = {};
+    let currentCollection = 'lip';
+    let currentIdx = 2;
+    let currentLang = 'vi';
+    let currentBrushHex = '#9E1B24';
+
+    function resolveImageSrc(filename) {
+      return uploadedBlobMap[filename] || filename;
+    }
+
+    function handleRealPhotosUpload(event) {
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+
+      files.forEach(file => {
+        const url = URL.createObjectURL(file);
+        uploadedBlobMap[file.name] = url;
+        const normalized = file.name.replace('_2.', '.');
+        uploadedBlobMap[normalized] = url;
+      });
+
+      document.querySelectorAll('img[data-file]').forEach(img => {
+        const key = img.getAttribute('data-file');
+        if (uploadedBlobMap[key]) {
+          img.src = uploadedBlobMap[key];
+        }
+      });
+
+      updateHeroShowcase();
+    }
+
+    function renderTopSwatchBar() {
+      const bar = document.getElementById('top-swatch-bar');
+      const items = DFLUXE_CATALOG[currentCollection];
+      bar.innerHTML = items.map((item, idx) => `
+        <button onclick="selectShade('${currentCollection}', ${idx})"
+          style="--swatch-shadow: ${item.hex}88"
+          class="swatch-btn ${idx === currentIdx ? 'active bg-white/15 border-champagne' : 'bg-white/5 border-white/10 hover:bg-white/10'} border rounded-2xl p-2.5 flex items-center gap-3 text-left">
+          <span class="w-9 h-9 rounded-xl shrink-0 border border-white/30 shadow-inner" style="background-color: ${item.hex};"></span>
+          <div class="min-w-0">
+            <span class="block text-[9px] font-bold tracking-[0.22em] text-champagne uppercase">DF LUXE • ${item.code}</span>
+            <span class="block text-xs font-bold text-white truncate">${item.name}</span>
+          </div>
+        </button>
+      `).join('');
+    }
+
+    function updateHeroShowcase() {
+      const item = DFLUXE_CATALOG[currentCollection][currentIdx];
+      currentBrushHex = item.hex;
+
+      document.getElementById('cursor-pigment-tip').setAttribute('fill', item.hex);
+      document.getElementById('cursor-glow-dot').setAttribute('fill', item.hex);
+      document.getElementById('ambient-color-aura').style.background = `radial-gradient(circle, ${item.hex} 0%, transparent 70%)`;
+
+      const modelImgEl = document.getElementById('hero-real-model-img');
+      modelImgEl.setAttribute('data-file', item.modelImg);
+      modelImgEl.src = resolveImageSrc(item.modelImg);
+      document.getElementById('hero-model-badge').textContent = item.modelBadge;
+      document.getElementById('hero-model-caption').textContent = currentLang === 'vi' ? item.modelCaption_vi : item.modelCaption_en;
+
+      const prodImgEl = document.getElementById('hero-real-product-img');
+      prodImgEl.setAttribute('data-file', item.productImg);
+      prodImgEl.src = resolveImageSrc(item.productImg);
+      document.getElementById('hero-product-file-tag').textContent = item.productTag;
+      document.getElementById('hero-product-caption').textContent = currentLang === 'vi' ? item.productCaption_vi : item.productCaption_en;
+
+      document.getElementById('active-code-pill').textContent = `DF LUXE • ${item.code}`;
+      document.getElementById('active-hex-dot').style.backgroundColor = item.hex;
+      document.getElementById('active-shade-title').textContent = item.name.toUpperCase();
+      document.getElementById('active-shade-subtitle').textContent = item.subtitle;
+      document.getElementById('active-shade-shortdesc').textContent = currentLang === 'vi' ? item.desc_vi : item.desc_en;
+
+      const closeImgEl = document.getElementById('hero-closeup-img');
+      closeImgEl.setAttribute('data-file', item.closeupImg);
+      closeImgEl.src = resolveImageSrc(item.closeupImg);
+      document.getElementById('hero-closeup-tag').textContent = item.closeupTag;
+
+      renderTopSwatchBar();
+    }
+
+    function switchCollection(type) {
+      currentCollection = type;
+      currentIdx = type === 'lip' ? 2 : 0;
+
+      const btnLip = document.getElementById('mode-lip-btn');
+      const btnCushion = document.getElementById('mode-cushion-btn');
+      if (type === 'lip') {
+        btnLip.className = 'px-4 sm:px-5 py-2 rounded-full text-[11px] font-bold tracking-[0.16em] uppercase bg-white text-black transition';
+        btnCushion.className = 'px-4 sm:px-5 py-2 rounded-full text-[11px] font-bold tracking-[0.16em] uppercase text-white/70 hover:text-white transition';
+      } else {
+        btnCushion.className = 'px-4 sm:px-5 py-2 rounded-full text-[11px] font-bold tracking-[0.16em] uppercase bg-white text-black transition';
+        btnLip.className = 'px-4 sm:px-5 py-2 rounded-full text-[11px] font-bold tracking-[0.16em] uppercase text-white/70 hover:text-white transition';
+      }
+      updateHeroShowcase();
+    }
+
+    function selectShade(type, idx) {
+      if (currentCollection !== type) {
+        currentCollection = type;
+        switchCollection(type);
+      }
+      currentIdx = idx;
+      updateHeroShowcase();
+      if (window.scrollY > 420) {
+        document.getElementById('palette-first').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // 2. HIỆU ỨNG CON TRỎ THỎI SON & VỆT MÀU NHUNG TRÊN MÀN HÌNH
+    const cursorNode = document.getElementById('df-lipstick-cursor');
+    const trailCanvas = document.getElementById('swatch-trail-canvas');
+    const ctx = trailCanvas.getContext('2d');
+    let trailPoints = [];
+    let lastX = window.innerWidth / 2;
+
+    function resizeTrailCanvas() {
+      trailCanvas.width = window.innerWidth;
+      trailCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeTrailCanvas);
+    resizeTrailCanvas();
+
+    window.addEventListener('pointermove', (e) => {
+      const dx = e.clientX - lastX;
+      lastX = e.clientX;
+      const angle = Math.max(-16, Math.min(16, dx * 0.35));
+      if (cursorNode) {
+        cursorNode.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px) rotate(${angle}deg)`;
+      }
+      trailPoints.push({
+        x: e.clientX,
+        y: e.clientY,
+        color: currentBrushHex,
+        alpha: 0.5,
+        r: 8
+      });
+      if (trailPoints.length > 50) trailPoints.shift();
+    });
+
+    function clearTrail() {
+      trailPoints = [];
+      ctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+    }
+
+    function renderTrailLoop() {
+      ctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+      for (let i = 0; i < trailPoints.length; i++) {
+        const pt = trailPoints[i];
+        pt.alpha *= 0.95;
+        if (pt.alpha < 0.02) continue;
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, pt.r * pt.alpha, 0, Math.PI * 2);
+        ctx.fillStyle = pt.color;
+        ctx.globalAlpha = pt.alpha;
+        ctx.shadowColor = pt.color;
+        ctx.shadowBlur = 10;
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      trailPoints = trailPoints.filter(p => p.alpha >= 0.02);
+      requestAnimationFrame(renderTrailLoop);
+    }
+    renderTrailLoop();
+
+    // 3. CHUYỂN ĐỔI NGÔN NGỮ VI / EN
+    const TEXT_DICT = {
+      vi: {
+        nav_1: '01. Bảng Màu',
+        nav_2: '02. Người Mẫu Thật',
+        nav_3: '03. Bộ Sưu Tập',
+        nav_4: '20 Học Bổng 4 Tuần',
+        btn_sync_photos: 'Đồng Bộ Ảnh Gốc',
+        nav_cta: 'Nhận Học Bổng',
+        official_tag: 'DF LUXE OFFICIAL VIETNAM • BY DIAN FLAWLESS',
+        official_sub: 'Bấm vào từng ô màu bên dưới để xem trực tiếp trên người mẫu thật và sản phẩm thật',
+        clear_trail_hint: 'Vệt thử son trên màn hình',
+        btn_clear: 'Xóa vệt',
+        lb_title: 'LOOKBOOK NGƯỜI MẪU THẬT DF LUXE',
+        lb_subtitle: 'Bấm vào bất kỳ bức ảnh người mẫu nào để thử ngay sắc son & phấn nước đó lên màn hình.',
+        archive_title: 'TUYỆT TÁC SẢN PHẨM DF LUXE',
+        archive_sub: 'Trọn bộ góc chụp studio nguyên bản của DF LUXE Lip Mousse & Glow Flawless Cushion.',
+        acad_tag: 'SỰ KIỆN KHAI TRƯƠNG TẠI VIỆT NAM • TÀI TRỢ 100% BỞI DF LUXE',
+        acad_heading: 'Tặng Miễn Phí 20 Suất Học Makeup Cơ Bản (4 Tuần) Cùng Chuyên Gia',
+        acad_text: 'Nhân dịp thương hiệu DF LUXE (Indonesia) chính thức ra mắt tại thị trường Việt Nam, chúng tôi tài trợ 100% học phí và bộ sản phẩm thực hành chính hãng (DF LUXE Lip Mousse & Glow Flawless Cushion) cho 20 học viên đăng ký sớm nhất.',
+        wk1: 'Nền Glow Flawless Cushion',
+        wk2: 'Tạo Khối & Định Hình Mày',
+        wk3: 'Môi Nhung Lip Mousse',
+        wk4: 'Chụp Lookbook Tốt Nghiệp',
+        form_title: 'Giữ Suất Học Bổng Miễn Phí',
+        form_btn: 'NHẬN THẺ HỌC BỔNG DF LUXE',
+        vip_msg: 'Chuyên viên DF LUXE sẽ liên hệ qua Zalo để gửi lịch học 4 tuần.'
+      },
+      en: {
+        nav_1: '01. Shades',
+        nav_2: '02. Real Muses',
+        nav_3: '03. Archive',
+        nav_4: '20 Scholarships',
+        btn_sync_photos: 'Load Local Photos',
+        nav_cta: 'Claim Pass',
+        official_tag: 'DF LUXE OFFICIAL VIETNAM • BY DIAN FLAWLESS',
+        official_sub: 'Select any official shade below to preview on our real campaign models and studio photography',
+        clear_trail_hint: 'Live screen lipstick trail',
+        btn_clear: 'Clear',
+        lb_title: 'DF LUXE REAL MUSE LOOKBOOK',
+        lb_subtitle: 'Click any campaign portrait below to test its Lip Mousse or Glow Flawless Cushion shade.',
+        archive_title: 'DF LUXE STILL-LIFE ARCHIVE',
+        archive_sub: 'Original studio photography of DF LUXE Lip Mousse & Glow Flawless Cushion.',
+        acad_tag: 'VIETNAM GRAND LAUNCH • 100% SPONSORED BY DF LUXE',
+        acad_heading: '20 Free 4-Week Essential Makeup Scholarships with Pro Artists',
+        acad_text: 'Celebrating DF LUXE’s official arrival in Vietnam from Indonesia, we sponsor 100% tuition and a full authentic kit (DF LUXE Lip Mousse & Glow Flawless Cushion) for the first 20 students.',
+        wk1: 'Glow Flawless Cushion Base',
+        wk2: 'Sculpting & Brow Styling',
+        wk3: 'Velvet Lip Mousse Artistry',
+        wk4: 'Editorial Lookbook Shoot',
+        form_title: 'Reserve Your Free Scholarship',
+        form_btn: 'CLAIM DF LUXE VIP PASS',
+        vip_msg: 'Our DF LUXE Vietnam team will contact you via Zalo with your 4-week class schedule.'
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('lang-vi').className = lang === 'vi'
+        ? 'px-3 py-1 rounded-full bg-white text-black transition'
+        : 'px-3 py-1 rounded-full text-white/60 hover:text-white transition';
+      document.getElementById('lang-en').className = lang === 'en'
+        ? 'px-3 py-1 rounded-full bg-white text-black transition'
+        : 'px-3 py-1 rounded-full text-white/60 hover:text-white transition';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (TEXT_DICT[lang][k]) el.textContent = TEXT_DICT[lang][k];
+      });
+      updateHeroShowcase();
+    }
+
+    // 4. HÀM GỬI DỮ LIỆU ĐĂNG KÝ VỀ GOOGLE SHEETS & LƯU DỰ PHÒNG LOCALSTORAGE
+    let slotsLeft = 5;
+    async function handleScholarshipSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const prod = document.getElementById('reg-product').value;
+      const submitBtn = document.getElementById('submit-scholarship-btn');
+      if (!name || !phone) return;
+
+      const vipCode = '#DFVN-0' + (21 - slotsLeft);
+      const entryData = {
+        timestamp: new Date().toLocaleString('vi-VN'),
+        vipCode: vipCode,
+        name: name,
+        phone: phone,
+        product: prod,
+        lang: currentLang.toUpperCase()
+      };
+
+      // Lưu dự phòng ngay lập tức vào trình duyệt để không bao giờ mất khách
+      const currentLeads = getBackupLeads();
+      currentLeads.push(entryData);
+      localStorage.setItem('dfluxe_scholarship_leads', JSON.stringify(currentLeads));
+
+      const originalBtnHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = currentLang === 'vi' ? 'ĐANG ĐỒNG BỘ GOOGLE SHEETS...' : 'SYNCING TO GOOGLE SHEETS...';
+      submitBtn.disabled = true;
+
+      let syncedToCloud = false;
+      const scriptUrl = getGoogleScriptUrl();
+
+      try {
+        if (scriptUrl && scriptUrl.startsWith('https://')) {
+          await fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(entryData)
+          });
+          syncedToCloud = true;
+        }
+      } catch (err) {
+        console.error('Google Sheets Sync Error:', err);
+      } finally {
+        if (slotsLeft > 1) {
+          slotsLeft--;
+          document.getElementById('slot-counter').textContent = '0' + slotsLeft;
+        }
+
+        document.getElementById('vip-pass-name').textContent = `${vipCode} • ${name} (${phone}) — ${prod}`;
+        const syncStatusEl = document.getElementById('vip-sync-status');
+        if (syncedToCloud) {
+          syncStatusEl.textContent = '✓ Đã tự động ghi vào bảng Google Sheets trong Google Drive của bạn.';
+        } else {
+          syncStatusEl.textContent = '✓ Đã lưu vào bộ nhớ trang (Bấm "📊 Google Sheets" trên menu để gắn link Sheet hoặc tải CSV).';
+        }
+
+        document.getElementById('vip-pass-box').classList.remove('hidden');
+        submitBtn.innerHTML = originalBtnHTML;
+        submitBtn.disabled = false;
+        updateSheetsStatusUI();
+        e.target.reset();
+      }
+    }
+
+    // Khởi tạo ngay khi tải trang
+    updateHeroShowcase();
+    updateSheetsStatusUI();
+  </script>
+</body>
+</html>
